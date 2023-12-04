@@ -9,8 +9,8 @@ const MenuItemForm = ({onSubmit, menuItem}) => {
     const [name, setName] = useState(menuItem?.name || "");
   const [description, setDescription] = useState(menuItem?.description || "");
   const [basePrice, setBasePrice] = useState(menuItem?.basePrice || "");
-  const [sizes, setSizes] = useState([]);
-  const [extraIngredientPrice, setExtraIngredientPrice] = useState([]);
+  const [sizes, setSizes] = useState(menuItem?.sizes || []);
+  const [extraIngredientPrice, setExtraIngredientPrice] = useState(menuItem?.extraIngredientPrice || []);
 
 
   const addSize=()=>{

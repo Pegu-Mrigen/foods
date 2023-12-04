@@ -25,7 +25,7 @@ const EditMenuItemPage = () => {
 
   const [description, setDescription] = useState("");
   const [basePrice, setBasePrice] = useState("");
-  const [image, setImage] = useState( "");
+  const [image, setImage] = useState(menuItem?.image ||"");
   const [imgData, setImgData] = useState({});
   
   
@@ -46,7 +46,7 @@ const router = useRouter()
       res.json().then(items=>{
         const item= items.find(i=>i._id===id)
         //console.log(item)
-        setImage(item.image);
+        setImage(item?.image);
         // setName(item.name);
         // setDescription(item.description);
         // setBasePrice(item.basePrice);
@@ -243,17 +243,19 @@ const router = useRouter()
       <div className="mx-auto mt-8 gap-2  " >
        
         
-        {image ? (
+        {data?.img || image  ? (
           <div className="w-28 h-28 relative">
             <Image
             className="rounded-lg  "
             // src={data.img || imgData}
             src={data?.img || image}
+            
             // src={data.img}
             //src={image}
             alt=""
             layout="fill"           
           />
+          
           </div>
         ) : (
           <div className="bg-gray-200 p-4 text-gray-500 rounded-lg flex justify-center items-center mt-7 ">
@@ -266,7 +268,7 @@ const router = useRouter()
             type="file"
             className="hidden"
             //onChange={handleFileChange}
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={(e) => setFile(e.target.files[0]) }
           />
 
           <span

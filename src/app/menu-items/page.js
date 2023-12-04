@@ -89,9 +89,7 @@ const MenuItemsPage = () => {
   useEffect(() => {
 
     fetch("/api/menu-items").then(res=>{
-      res.json(
-
-      ).then(menuItems=>{
+      res.json().then(menuItems=>{
         setMenuItems(menuItems)
       })
     })
