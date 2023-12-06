@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Trash from '../icons/Trash';
 import Plus from '../icons/Plus';
 import MenuItemProps from './MenuItemProps';
@@ -11,6 +11,8 @@ const MenuItemForm = ({onSubmit, menuItem}) => {
   const [basePrice, setBasePrice] = useState(menuItem?.basePrice || "");
   const [sizes, setSizes] = useState(menuItem?.sizes || []);
   const [extraIngredientPrice, setExtraIngredientPrice] = useState(menuItem?.extraIngredientPrice || []);
+  const [category, setCategory] = useState(menuItem?.category || "");
+  const [categories, setCategories] = useState( []);
 
 
   const addSize=()=>{
@@ -37,13 +39,25 @@ const MenuItemForm = ({onSubmit, menuItem}) => {
   const removeSize=(index)=>{
     setSizes(prev=>prev.filter((v,i)=>i !==index))
   }
+
+  useEffect(()=>{
+
+    fetch("/api/categories").then(res=>{
+      res.json().then(categories=>{
+        setCategories(categories)
+      })
+    })
+
+
+
+  }, [])
   
   return (
-    <form className="  mt-8 max-w-xl mx-auto  " 
+    <form className="  mt-8 max-w-2xl mx-auto  " 
     
     
     // onSubmit={onSubmit}
-    onSubmit={e=>onSubmit(e, {image, name, description, basePrice,extraIngredientPrice, sizes, })}
+    onSubmit={e=>onSubmit(e, {image, name, description, basePrice,extraIngredientPrice, sizes, category })}
     
     
     >
@@ -61,6 +75,12 @@ const MenuItemForm = ({onSubmit, menuItem}) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+
+        <label>Category</label>
+        <select value={category} onChange={e=>setCategory(e.target.value)}>{categories?.length>0 && categories.map(c=>(
+          <option key={c._id} value={c._id}>{c.name}</option>
+          // <option key={c._id} >{c.name}</option>
+        ))}</select>
         <label>Base price</label>
         <input
           type="text"

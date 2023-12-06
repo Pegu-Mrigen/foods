@@ -141,7 +141,7 @@ const router = useRouter()
   return (
     <section className="flex flex-col mt-8 items-center justify-center">
       <UserTabs isAdmin={true} />
-      <div className="mt-8">
+      <div className="mt-8 max-w-2xl mx-auto ">
      <Link href="/menu-items"  className="button">
      <LeftSide />
      Show all menu item

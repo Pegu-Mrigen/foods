@@ -34,3 +34,15 @@ export async function GET() {
 
 
 }
+export async function DELETE(req){
+    mongoose.connect(process.env.MONGO_URL);
+    console.log(req.url)
+
+    const url= new URL(req.url)
+    console.log(url.searchParams)
+
+    const _id=url.searchParams.get("_id")
+    const res=await MenuItem.deleteOne({_id})
+    return Response.json(res)
+    
+}

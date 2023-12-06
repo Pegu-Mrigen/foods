@@ -187,7 +187,7 @@ const MenuItemsPage = () => {
     //     </div>
     //   </form>
     // </section>
-    <section className="mt-8 max-w-md mx-auto">
+    <section className="mt-8 max-w-2xl mx-auto">
       <UserTabs isAdmin={true} />
      <div className="mt-8">
      <Link href="/menu-items/new"  className="button">Create new menu item
@@ -198,9 +198,9 @@ const MenuItemsPage = () => {
       <h2 className="text-sm text-gray-500 mt-8">Edit menu item:</h2>
       <div className="grid grid-cols-3 gap-2">
       {menuItems?.length>0 && menuItems.map((item)=>(
-        <Link href={"/menu-items/edit/"+ item._id} key={item._id} className="bg-gray-200 rounded-lg p-4">
+        <Link href={"/menu-items/edit/"+ item._id} key={item._id} className="bg-gray-200 rounded-lg p-2 flex flex-col items-center justify-center">
          <div className="relative"  >
-         <Image src={item.image || "/Cherry.png "} alt="" width={100} height={100} className="rounded-md" /></div> <div className="text-center mt-2">{item.name}</div></Link>
+         <Image src={item.image || "/Cherry.png "} alt="" width={200} height={200} className="rounded-md  " /></div> <div className="text-center mt-2">{item.name}</div></Link>
       ))}
       </div>
      </div>

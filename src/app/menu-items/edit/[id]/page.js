@@ -12,6 +12,7 @@ import Link from "next/link";
 import { redirect, useParams } from "next/navigation";
 import { useRouter } from 'next/navigation'
 import MenuItemForm from "@/components/layout/MenuItemForm";
+import DeleteButton from "@/components/DeleteButton";
 
 const EditMenuItemPage = () => {
   const session = useSession();
@@ -220,10 +221,28 @@ const router = useRouter()
   // };
 
 
+  
+  
+  const handleDeleteClick=async()=>{
+    const promise= new Promise(async(resolve, reject)=>{
+      const res=await fetch("/api/menu-items?_id="+id,{
+        method:"DELETE"
+      })
+      if(res.ok)
+      resolve()
+    else reject()
+    })
+    await toast.promise(promise, {
+     loading:"Deleting...",
+     success:"Deleted",
+     error:"Error",
+    })
+    setRedirectToItems(true)
+  }
+  
   if (redirectToItems) {
     return redirect('/menu-items');
   }
-
 
   
 
@@ -232,7 +251,7 @@ const router = useRouter()
   return (
     <section className=" flex flex-col  mt-8 items-center justify-center ">
       <UserTabs isAdmin={true} />
-      <div className="mt-8 max-w-md">
+      <div className="mt-8 max-w-2xl">
      <Link href="/menu-items"  className="button">Show all menu item
      <LeftSide />
      </Link>
@@ -306,6 +325,13 @@ const router = useRouter()
       </form> */}
 
       <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit}  />
+      </div>
+      <div className=" flex items-center  mt-4">
+        <div className="w-[400px] ml-24 pl-4">
+
+          <DeleteButton label="Delete this menu ite" onDelete={handleDeleteClick} />
+          
+        </div>
       </div>
       
     </section>
