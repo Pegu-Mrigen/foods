@@ -65,9 +65,9 @@ const LoginPage = () => {
         </button>
 
         <div className="text-center  my-4 text-gray-500 border-t pt-4">
-          Exist an account?{" "}
-          <Link href="/login" className="underline">
-            Login here &raquo;
+          Do not have an account?{" "}
+          <Link href="/register" className="underline">
+            Register here &raquo;
           </Link>
         </div>
       </form>

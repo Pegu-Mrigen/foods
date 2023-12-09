@@ -146,8 +146,9 @@ const UserForm = ({user, onSave}) => {
             <label>Email</label>
             <input
               type="email"
-              disabled={"true"}
+              disabled={true}
               value={user?.email}
+              placeholder="email"
             />
             {/* <label>Phone</label>
             <input

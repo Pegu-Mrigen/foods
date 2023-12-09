@@ -34,11 +34,14 @@ export async function PUT(req) {
   const user = await User.findOne(filter);
 
   await User.updateOne(filter, otherData);
-  await User.findOneAndUpdate({email:user.email}, otherData, {upsert:true});
+  await User.findOneAndUpdate({email:user?.email}, otherData, {upsert:true});
 
-  if (!email) {
-    return Response.json({});
-  }
+  // if (!email) {
+  //   return Response.json({});
+  // } 
+  // if (!email) {
+  //   return Response.json({});
+  // }   email not returned as _id is available
   return Response.json(true);
 }
 
@@ -52,5 +55,5 @@ export async function GET() {
     return Response.json({});
   }
 
-  return Response.json(await User.findOne({ email }));
+  return Response.json(await User.findOne({email}));
 }
