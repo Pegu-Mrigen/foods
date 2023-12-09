@@ -28,7 +28,6 @@ export async function PUT(req) {
 export async function GET() {
     mongoose.connect(process.env.MONGO_URL);  
 
-
     return Response.json(await MenuItem.find())
 
 

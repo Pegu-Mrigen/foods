@@ -20,21 +20,19 @@ export async function PUT(req) {
   // const email = session?.user?.email;
 
   // await User.updateOne({ email }, data);}
-  
+  const session = await getServerSession(authOptions);
+
+  const email = session?.user?.email;
 
   let filter = {};
   if (_id) {
     filter = { _id };
   } else {
-    const session = await getServerSession(authOptions);
-
-  const email = session?.user?.email;
     filter = { email };
   }
-  const user = await User.findOne(filter);
 
   await User.updateOne(filter, otherData);
-  await User.findOneAndUpdate({email:user.email}, otherData, {upsert:true});
+  //await User.findOneAndUpdate(filter, otherData);
 
   if (!email) {
     return Response.json({});

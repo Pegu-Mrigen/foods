@@ -8,7 +8,7 @@ const nextConfig = {
             {protocol:"https",hostname:"firebasestorage.googleapis.com"},
         ]
     },
-    webpack5: true,
+    // webpack5: true,
     webpack: (config) => {
       config.resolve.fallback = { fs: false };
   

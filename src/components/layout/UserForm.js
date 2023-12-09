@@ -11,6 +11,7 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useProfile } from "../UseProfile";
+import AddressInputs from "./AddressInputs";
 
 const UserForm = ({user, onSave}) => {
   const [username, setUsername] = useState(user?.name||"");  
@@ -29,6 +30,17 @@ const UserForm = ({user, onSave}) => {
 
 
   const {userData:loggedInUserData} = useProfile()
+
+
+  function handleAddressChange(propName, value){
+
+    if(propName==="city") setCity(value)
+    if(propName==="phone") setPhone(value)
+    if(propName==="country") setCountry(value)
+    if(propName==="streetAddress") setStreetAddress(value)
+    if(propName==="postalCode") setPostalCode(value)
+
+  }
 
   useEffect(() => {
    
@@ -137,7 +149,7 @@ const UserForm = ({user, onSave}) => {
               disabled={"true"}
               value={user?.email}
             />
-            <label>Phone</label>
+            {/* <label>Phone</label>
             <input
               type="tel"
               
@@ -182,7 +194,9 @@ const UserForm = ({user, onSave}) => {
               placeholder="Country"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-            />
+            /> */}
+
+            <AddressInputs addressProps={{phone, streetAddress, postalCode, city, country}} setAddressProps={handleAddressChange} />
             {loggedInUserData.admin && <div>
               {JSON.stringify(admin)}
               

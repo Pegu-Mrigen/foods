@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import MenuItemsPage from './../menu-items/page';
 import SectionHeaders from '@/components/layout/SectionHeaders';
-import MenuItem from '@/components/menu/MenuItem111';
+import MenuItem from '@/components/menu/MenuItem';
 
 const MenuPage = () => {
 

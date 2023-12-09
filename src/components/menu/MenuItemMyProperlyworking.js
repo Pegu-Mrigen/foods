@@ -4,11 +4,12 @@ import { CartContext } from "../AppContext";
 import toast from "react-hot-toast";
 import MenuItemTile from "./MenuItemTile";
 import Image from "next/image";
+import { FlyingButton } from 'react-flying-item';
 
 const MenuItem = (menuItem) => {
 
   const {image, name, description, basePrice, sizes, extraIngredientPrice}=menuItem
-//console.log(menuItem)
+
   const [showPopup, setShowPopup] = useState(false)
   const [selectedSize, setSelectedSize] = useState(sizes?.[0] || null)
   const [selectedExtra, setSelectedExtra] = useState([])
@@ -17,23 +18,22 @@ const MenuItem = (menuItem) => {
   const {addToCart}=useContext(CartContext)
 
 
-  async function handleAddToCartButtonClick(){
+  function handleAddToCartButtonClick(){
 
-    const selectedOptions= sizes.length>0 || extraIngredientPrice.length>0
-    if(selectedOptions && !showPopup){
-      setShowPopup(true)
-      return;
+    if(showPopup){
+      addToCart(menuItem, selectedSize, selectedExtra)
+      toast.success("Added to cart!")
+      setShowPopup(false)
       
     }else{
-      
-      addToCart(menuItem, selectedExtra, selectedSize)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-   
-      setShowPopup(false)
-      toast.success("Added to cart!")
-      
-       
-      
+
+      const selectedOptions= sizes.length>0 || extraIngredientPrice.length>0
+      if(selectedOptions){
+        setShowPopup(true)
+      }else{
+        addToCart(menuItem, selectedSize, selectedExtra)
+        toast.success("Added to cart!")
+      }
     }
   }
   function handleExtraClick(e, extra){
@@ -82,7 +82,7 @@ const MenuItem = (menuItem) => {
         <div className=" py-2">
           <h3 className="text-center text-gray-700">Pick your item size</h3>
           {sizes.map(size=>(
-            <label key={size._id} className="flex items-center gap-2 p-4 border rounded-md">
+            <label key={size} className="flex items-center gap-2 p-4 border rounded-md">
               <input type="radio" onClick={()=>setSelectedSize(size)}
               
               checked={selectedSize?.name===size.name}
@@ -98,14 +98,22 @@ const MenuItem = (menuItem) => {
         {/* {JSON.stringify(selectedExtra)} */}
 
         {extraIngredientPrice.map(extra=>(
-          <label key={extra._id} className="flex items-center gap-2 p-4 border rounded-md">
-            <input type="checkbox" onClick={(e)=>handleExtraClick(e, extra)} name={extra.name}  value="" />{extra.name} +Rs/- { extra.price}
+          <label key={extra} className="flex items-center gap-2 p-4 border rounded-md">
+            <input type="checkbox" onClick={(e)=>handleExtraClick(e, extra)} name="extra"  value="" />{extra.name} +Rs/- { extra.price}
           </label>
         ))}
       </div>
 
       )}
-      <button  type="button" className=" primary sticky bottom-2" onClick={handleAddToCartButtonClick}>Add to cart Rs/- {selectedPrice}</button>
+      {/* <button  type="button" className=" primary sticky bottom-2" onClick={handleAddToCartButtonClick}>Add to cart Rs/- {selectedPrice}</button> */}
+
+      <FlyingButton src={image} targetTop	="5%" targetLeft	="95%"  >
+                <div  onClick={onClick} className=" primary sticky bottom-2">Add to cart Rs/- {selectedPrice}</div>
+                </FlyingButton>
+
+
+
+
       <button onClick={()=>setShowPopup(false)} className="mt-2">Cancel</button>
       </div>
       </div>
@@ -132,7 +140,7 @@ const MenuItem = (menuItem) => {
       </button>
     </div> */}
 
-    <MenuItemTile {...menuItem} onAddToCart={handleAddToCartButtonClick} />
+    <MenuItemTile  onAddToCart={handleAddToCartButtonClick} {...menuItem} />
         </>
   );
 };

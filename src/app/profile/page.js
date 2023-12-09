@@ -32,9 +32,6 @@ const ProfilePage = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   const { status } = session;
-
- 
-
   
 
   useEffect(() => {
@@ -60,7 +57,7 @@ const ProfilePage = () => {
     return redirect("/login");
   }
 
-  const handleProfileUpdate = async (e, data) => {
+  async function  handleProfileUpdate (e, data){
     e.preventDefault();
     const savingPromise = new Promise(async (resolve, reject) => {
       const response = await fetch("/api/profile", {
@@ -69,8 +66,11 @@ const ProfilePage = () => {
         body: JSON.stringify(data),
       });
 
-      if (response.ok) resolve();
+      if (response)
+       resolve()
       else reject();
+      // if (response.ok) resolve();
+      // else reject();
     });
 
     await toast.promise(savingPromise, {
