@@ -20,7 +20,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-flying-item": "^1.1.3",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "stripe": "^14.8.0"
   },
   "devDependencies": {
     "autoprefixer": "latest",

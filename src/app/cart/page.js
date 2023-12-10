@@ -6,16 +6,17 @@ import Image from "next/image";
 import Trash from "@/components/icons/Trash";
 import AddressInputs from "@/components/layout/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
+import toast from "react-hot-toast";
 
 const CartPage = () => {
   const { cartProducts, removeCartProduct } = useContext(CartContext);
   const [address, setAddress] = useState({});
-  
+
   const { userData: profileData } = useProfile();
   useEffect(() => {
     if (profileData?.city) {
       const { phone, streetAddress, city, country, postalCode } = profileData;
-      
+
       const addressFromProfile = {
         phone,
         streetAddress,
@@ -26,15 +27,12 @@ const CartPage = () => {
       setAddress(addressFromProfile);
     }
   }, [profileData]);
-  
-  
+
   console.log(profileData);
-  
 
-
-  let total = 0;
+  let subtotal = 0;
   for (const p of cartProducts) {
-    total += cartProductPrice(p);
+    subtotal += cartProductPrice(p);
   }
 
   console.log(cartProducts);
@@ -47,6 +45,59 @@ const CartPage = () => {
   function handleAddressChange(propName, value) {
     setAddress((prevAddress) => ({ ...prevAddress, [propName]: value }));
   }
+
+  // async function proceedToCheckout(e) {
+  //   e.preventDefault()
+  //   const response = await fetch("/api/checkout", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       cartProducts,
+  //       address,
+  //     }),
+  //   });
+
+  // //   const link = await response.json()
+
+  // //  window.location= link
+  // window.location = await response.json()
+
+  // }
+
+  //console.log(cartProducts)
+
+  async function proceedToCheckout(e) {
+    e.preventDefault();
+
+    const promise = new Promise((resolve, reject) => {
+      fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cartProducts,
+          address,
+        }),
+      }).then(async (response) => {
+        if (response.ok) {
+          resolve();
+          window.location = await response.json();
+        } else {
+          reject();
+        }
+      });
+    });
+
+    await toast.promise(promise, {
+      loading: "Preparing your order...",
+      success: "Redirecting to payment...",
+      error: "Something went wrong... Please try again later",
+    });
+  }
+
   return (
     <section className="mt-8">
       <div className="text-center">
@@ -98,20 +149,29 @@ const CartPage = () => {
                 </div>
               </div>
             ))}
-          <div className="py-2 text-right pr-16">
-            <span className="text-gray-600">Subtotal:</span>
-            <span className="text-lg font-semibold pl-2">Rs/- {total}</span>
+          <div className="py-2 pr-16 flex justify-end items-center">
+            <div className="text-gray-600">
+              Subtotal: <br />
+              Delivery: <br />
+              Total:
+            </div>
+            <div className=" font-semibold pl-2 text-right">
+              Rs/- {subtotal}
+              <br />
+              Rs/- 5 <br />
+              Rs/- {subtotal + 5}
+            </div>
           </div>
         </div>
 
         <div className="bg-gray-200 p-4 rounded-lg">
           <h2>Checkout</h2>
-          <form>
+          <form onSubmit={proceedToCheckout}>
             <AddressInputs
               addressProps={address}
-              setAddressProps={ handleAddressChange }
+              setAddressProps={handleAddressChange}
             />
-            <button type="submit" >Pay Rs/- {total}</button>
+            <button type="submit">Pay Rs/- {subtotal + 20}</button>
           </form>
         </div>
       </div>
