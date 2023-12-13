@@ -2,11 +2,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import SectionHeaders from "./../../components/layout/SectionHeaders";
 import { CartContext, cartProductPrice } from "@/components/AppContext";
-import Image from "next/image";
+//import Image from "next/image";
 import Trash from "@/components/icons/Trash";
 import AddressInputs from "@/components/layout/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
+import CartProduct from "@/components/layout/CartProduct";
 
 const CartPage = () => {
   const { cartProducts, removeCartProduct } = useContext(CartContext);
@@ -108,6 +109,17 @@ const CartPage = () => {
     });
   }
 
+  if(cartProducts?.length === 0){
+    return (
+      <section className="mt-8 text-center">
+        <SectionHeaders mainHeader= "Cart" />
+        <p className="mt-4">
+          Your shopping cart is empty 😞  
+        </p>
+      </section>
+    )
+  }
+
   return (
     <section className="mt-8">
       <div className="text-center">
@@ -120,44 +132,45 @@ const CartPage = () => {
           )}
           {cartProducts?.length > 0 &&
             cartProducts.map((product, index) => (
-              <div
-                key={product.name}
-                className="flex items-center  gap-4 mb-2 border-b py-2"
-              >
-                <div className="w-24">
-                  <Image src={product.image} alt="" width={240} height={240} />
-                </div>
-                <div className="grow">
-                  <h3 className="font-semibold">{product.name}</h3>
-                  {product?.sizes && (
-                    <div className="text-sm">
-                      Size: <span>{product?.sizes?.name}</span>
-                    </div>
-                  )}
-                  {product?.extras?.length > 0 && (
-                    <div className="text-sm text-gray-500">
-                      {product.extras.map((extra) => (
-                        <div key={extra}>
-                          {extra?.name} Rs/- {extra.price}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+              // <div
+              //   key={product.name}
+              //   className="flex items-center  gap-4 mb-2 border-b py-2"
+              // >
+              //   <div className="w-24">
+              //     <Image src={product.image} alt="" width={240} height={240} />
+              //   </div>
+              //   <div className="grow">
+              //     <h3 className="font-semibold">{product.name}</h3>
+              //     {product?.sizes && (
+              //       <div className="text-sm">
+              //         Size: <span>{product?.sizes?.name}</span>
+              //       </div>
+              //     )}
+              //     {product?.extras?.length > 0 && (
+              //       <div className="text-sm text-gray-500">
+              //         {product.extras.map((extra) => (
+              //           <div key={extra}>
+              //             {extra?.name} Rs/- {extra.price}
+              //           </div>
+              //         ))}
+              //       </div>
+              //     )}
+              //   </div>
 
-                <div className="text-lg font-semibold">
-                  Rs/- {cartProductPrice(product)}
-                </div>
-                <div className="ml-2">
-                  <button
-                    type="button"
-                    onClick={() => removeCartProduct(index)}
-                    className="p-2"
-                  >
-                    <Trash />
-                  </button>
-                </div>
-              </div>
+              //   <div className="text-lg font-semibold">
+              //     Rs/- {cartProductPrice(product)}
+              //   </div>
+              //   <div className="ml-2">
+              //     <button
+              //       type="button"
+              //       onClick={() => removeCartProduct(index)}
+              //       className="p-2"
+              //     >
+              //       <Trash />
+              //     </button>
+              //   </div>
+              // </div>
+              <CartProduct key={product.name} product={product} onRemove={removeCartProduct} />
             ))}
           <div className="py-2 pr-16 flex justify-end items-center">
             <div className="text-gray-600">

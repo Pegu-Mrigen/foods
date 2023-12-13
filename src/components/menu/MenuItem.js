@@ -153,7 +153,7 @@ const MenuItem = (menuItem) => {
                 </FlyingButton>
 
               <button onClick={() => setShowPopup(false)} className="mt-2">
-                Cancelll
+                Cancel
               </button>
             </div>
           </div>

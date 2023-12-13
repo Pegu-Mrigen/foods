@@ -1,11 +1,11 @@
 import React from 'react'
 
-const AddressInputs = ({addressProps, setAddressProps}) => {
+const AddressInput  = ({addressProps, setAddressProps, disabled=false}) => {
       const {phone, streetAddress, postalCode, city, country}= addressProps
   return (
     <>
     <label>Phone</label>
-            <input
+            <input disabled={disabled}
             
               type="tel"
               
@@ -15,7 +15,7 @@ const AddressInputs = ({addressProps, setAddressProps}) => {
               onChange={(e) => setAddressProps( "phone", e.target.value)}
             />
             <label>Street address</label>
-            <input
+            <input disabled={disabled}
               type="text"
               placeholder="Street address"
               value={streetAddress}
@@ -24,7 +24,7 @@ const AddressInputs = ({addressProps, setAddressProps}) => {
            <div className="grid grid-cols-2 gap-2">
            <div>
            <label>Postal code</label>
-            <input 
+            <input disabled={disabled} 
             
               type="text"
               placeholder="Postal code"
@@ -35,7 +35,7 @@ const AddressInputs = ({addressProps, setAddressProps}) => {
            </div>
             <div>
             <label>City</label>
-            <input
+            <input disabled={disabled}
             
               type="text"
               placeholder="City"
@@ -45,7 +45,7 @@ const AddressInputs = ({addressProps, setAddressProps}) => {
             </div>
            </div>
            <label>Country</label>
-           <input 
+           <input disabled={disabled} 
               type="text"
               placeholder="Country"
               value={country}
@@ -55,4 +55,4 @@ const AddressInputs = ({addressProps, setAddressProps}) => {
   )
 }
 
-export default AddressInputs
+export default AddressInput
