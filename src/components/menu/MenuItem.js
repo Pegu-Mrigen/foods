@@ -107,12 +107,12 @@ const MenuItem = (menuItem) => {
                   </h3>
                   {sizes.map((size) => (
                     <label
-                      key={size}
+                      key={size._id}
                       className="flex items-center gap-2 p-4 border rounded-md"
                     >
                       <input
                         type="radio"
-                        onClick={() => setSelectedSize(size)}
+                        onChange={() => setSelectedSize(size)}
                         checked={selectedSize?.name === size.name}
                         name="size"
                         value=""
@@ -137,9 +137,10 @@ const MenuItem = (menuItem) => {
                     >
                       <input
                         type="checkbox"
-                        onClick={(e) => handleExtraClick(e, extra)}
+                        onChange={(e) => handleExtraClick(e, extra)}
                         name="extra"
                         value=""
+                        checked={selectedExtra.map(e=>e._id).includes(extra._id)}
                       />
                       {extra.name} +Rs/- {extra.price}
                     </label>

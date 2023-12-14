@@ -7,7 +7,7 @@ const UserTabs = ({isAdmin}) => {
 
     const path = usePathname()
   return (
-    <div className="flex gap-2 tabs justify-center">
+    <div className="flex gap-2 tabs justify-center flex-wrap">
     <Link href="/profile" className={path==="/profile"?"active":""} >Profile</Link>
     {
       isAdmin && (

@@ -258,12 +258,12 @@ const router = useRouter()
      </div>
      
       
-      <div className="grid gap-1 " style={{gridTemplateColumns:'1fr 4fr'}}>
+      <div className="md:grid gap-1" style={{gridTemplateColumns:'1fr 4fr'}}>
       <div className="mx-auto mt-8 gap-2  " >
        
         
         {data?.img || image  ? (
-          <div className="w-28 h-28 relative">
+          <div className="w-40 h-40 md:w-28 md:h-28 relative flex mx-auto">
             <Image
             className="rounded-lg  "
             // src={data.img || imgData}
@@ -294,7 +294,7 @@ const router = useRouter()
             className="block border border-gray-300 rounded-lg  p-2  text-center cursor-pointer"
             type="submit"
           >
-            {perc !== null && perc < 100 ? "Uploading" : "Edit"}
+            {perc !== null && perc < 100 ? "Uploading" : "Edit image"}
           </span>
         </label>
       </div>
@@ -327,9 +327,9 @@ const router = useRouter()
       <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit}  />
       </div>
       <div className=" flex items-center  mt-4">
-        <div className="w-[400px] ml-24 pl-4">
+        <div className="md:w-[400px] ml-24 pl-4 flex mx-auto ">
 
-          <DeleteButton label="Delete this menu ite" onDelete={handleDeleteClick} />
+          <DeleteButton label="Delete this menu item" onDelete={handleDeleteClick} />
           
         </div>
       </div>

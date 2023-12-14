@@ -4,8 +4,8 @@ import RightSide from "../icons/RightSide";
 
 const Hero = () => {
   return (
-    <section className="hero mt-4">
-      <div className="p-12">
+    <section className="hero md:mt-4">
+      <div className="py-8 md:py-12">
         <h1 className="text-4xl font-semibold">
           Make every party<br /> better with a&nbsp;<span className="text-primary">Pizza!</span>
         </h1>
@@ -26,7 +26,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className=" relative">
+      <div className=" relative hidden md:block">
         <Image src={"/p1.png"} layout="fill" objectFit="contain" alt="pizza" />
       </div>
     </section>

@@ -25,7 +25,7 @@ export default function Home() {
       <a href="tel:+917002274701" className="text-4xl underline text-gray-500">+917002274701</a>
       </div>
     </section>
-   
+    
     </>
    
   )

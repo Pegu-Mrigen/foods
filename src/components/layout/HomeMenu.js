@@ -20,11 +20,12 @@ const HomeMenu = () => {
 
   }, [])
   return (
-    <section class>
-      <div className="relative left-0 right-0 justify-start   ">
-        <div className="h-48 w-48 absolute -left-64 rotate-180  -z-10 overflow-x-hidden  ">
+    <section>
+      <div className="relative left-0 right-0   ">
+        <div className=" hidden xl:inline-block h-48 w-48 absolute -left-64 rotate-180  -z-10 overflow-x-hidden  ">
           <Image src={"/leafs.png"} alt="" layout="fill" objectFit="contain " />
         </div>
+        <div className="hidden 2xl:inline-block ">
         <div className="h-1 -z-10 overflow-x-hidden ">
           <Image
             src={"/leafs.png"}
@@ -32,15 +33,16 @@ const HomeMenu = () => {
             width={200}
             height={200}
             objectFit="contain"
-            className="absolute -right-48    "
+            className="absolute -right-48     "
           />
+        </div>
         </div>
       </div>
       <div className="text-center mb-4">
         <SectionHeaders subHeader="Checkout" mainHeader="Our Best Sellers" />
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-3 gap-4">
         {bestSellers?.length>0 &&
       bestSellers.map(item=>(
         <MenuItem key={item._id} {...item}  />

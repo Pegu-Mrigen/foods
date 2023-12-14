@@ -100,9 +100,9 @@ const UserForm = ({user, onSave}) => {
   console.log(data);
   
   return (
-    <section  className="flex gap-4">
+    <section  className="md:flex gap-4">
         <div>
-            <div className="bg-gray-200  rounded-lg max-w-[120px]">
+            <div className="bg-gray-200  rounded-lg w-full md:max-w-[120px]">
               <Image
                 className="rounded-lg w-full h-full mb-1"
                 src={data?.img||user?.image}                
@@ -126,7 +126,7 @@ const UserForm = ({user, onSave}) => {
                 >
                 
 
-                {(perc !== null && perc < 100) ? "Uploading":"Edit"}
+                {(perc !== null && perc < 100) ? "Uploading":"Edit image"}
                 
                 </span>
               </label>
@@ -202,7 +202,7 @@ const UserForm = ({user, onSave}) => {
               {JSON.stringify(admin)}
               
               
-              <label htmlFor="adminCb" className="p-2 inline-flex items-center gap-2 mb-2" ><input id="adminCb" type="checkbox" value={"1"} checked={admin} onClick={e=>setAdmin(e.target.checked)} /><span>Admin</span></label>
+              <label htmlFor="adminCb" className="p-2 inline-flex items-center gap-2 mb-2" ><input id="adminCb" type="checkbox" value={"1"} checked={admin} onChange={e=>setAdmin(e.target.checked)} /><span>Admin</span></label>
             </div>}
             <button type="submit">Save</button>
           </form>
